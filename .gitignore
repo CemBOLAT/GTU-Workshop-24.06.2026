@@ -1,0 +1,42 @@
+# Node
+node_modules/
+
+# Logs
+logs/
+*.log
+npm-debug.log*
+
+# Runtime
+.env
+.env.local
+
+# Build
+dist/
+build/
+
+# OS
+.DS_Store
+Thumbs.db
+
+# VSCode - keep mcp.json but ignore other settings
+.vscode/*
+!.vscode/mcp.json
+
+# Lockfiles
+package-lock.json
+yarn.lock
+
+# Coverage
+coverage/
+
+# Databases
+*.sqlite
+*.db
+
+# Archives
+*.zip
+*.tar.gz
+
+# Misc
+.vscode-test/
+.idea/
