@@ -1,26 +1,8 @@
 import { z } from "zod";
 import path from "path";
-import { academicDatabase, readProjectFiles, formatAsTable } from "./context.js";
+import { readProjectFiles, formatAsTable } from "../shared/context.js";
 
-export async function registerTools(mcpServer) {
-  mcpServer.registerTool(
-    "localhost_hoca_verisi_cek",
-    {
-      title: "Hoca Verisi Çek",
-      description: "Akademisyen verisini ID ile getirir.",
-      inputSchema: z.object({ hoca_id: z.string().min(1) })
-    },
-    async ({ hoca_id }) => {
-      const hoca = academicDatabase[hoca_id];
-
-      if (!hoca) {
-        return { content: [{ type: "text", text: `Hata: ${hoca_id} icin akademisyen bulunamadi.` }], isError: true };
-      }
-
-      return { content: [{ type: "text", text: JSON.stringify(hoca, null, 2) }] };
-    }
-  );
-
+export function registerOdevRaporuTool(mcpServer) {
   mcpServer.registerTool(
     "odev_format_raporu_olustur",
     {

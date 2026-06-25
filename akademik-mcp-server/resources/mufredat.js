@@ -1,21 +1,7 @@
 import { ResourceTemplate } from "@modelcontextprotocol/sdk/server/mcp.js";
-import { academicRulesText, academicDatabase, courseCatalog } from "./context.js";
+import { courseCatalog } from "../shared/context.js";
 
-export async function registerResources(mcpServer) {
-  mcpServer.registerResource(
-    "universite-yonetmeligi",
-    "http://localhost:3000/api/universite-yonetmeligi.txt",
-    { title: "Universite Yonetmeligi", description: "Salt-okunur yonetmelik ozeti.", mimeType: "text/plain" },
-    async () => ({ contents: [{ uri: "http://localhost:3000/api/universite-yonetmeligi.txt", mimeType: "text/plain", text: academicRulesText }] })
-  );
-
-  mcpServer.registerResource(
-    "akademisyen-verisi",
-    "http://localhost:3000/api/akademisyenler.json",
-    { title: "Akademisyen Veri Kumesi", description: "Canli akademisyen kayitlari.", mimeType: "application/json" },
-    async () => ({ contents: [{ uri: "http://localhost:3000/api/akademisyenler.json", mimeType: "application/json", text: JSON.stringify(academicDatabase, null, 2) }] })
-  );
-
+export function registerMufredatResource(mcpServer) {
   mcpServer.registerResource(
     "ders-mufredatlari",
     new ResourceTemplate("http://localhost:3000/dersler/{ders_kodu}/mufredat", {

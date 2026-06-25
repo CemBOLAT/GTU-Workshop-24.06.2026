@@ -13,6 +13,7 @@
   "type": "module",
   "dependencies": {
     "@modelcontextprotocol/sdk": "^1.29.0",
+    "ejs": "^6.0.1",
     "express": "^5.2.1",
     "zod": "^4.0.17"
   }

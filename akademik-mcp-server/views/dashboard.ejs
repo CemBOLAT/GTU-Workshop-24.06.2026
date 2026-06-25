@@ -1,0 +1,243 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>GTU Akademik MCP Dashboard</title>
+  <style>
+    body {
+      font-family: 'Outfit', 'Inter', system-ui, -apple-system, sans-serif;
+      color: #e2e8f0;
+      background: radial-gradient(circle at top right, #0d1e3d, #070f1e);
+      padding: 40px 20px;
+      margin: 0;
+      min-height: 100vh;
+    }
+    .shell {
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+    header {
+      text-align: center;
+      margin-bottom: 40px;
+    }
+    h1 {
+      font-size: 2.5rem;
+      color: #9fe3ff;
+      margin: 0 0 10px 0;
+      text-shadow: 0 0 15px rgba(159, 227, 255, 0.2);
+    }
+    .subtitle {
+      color: #94a3b8;
+      font-size: 1.1rem;
+    }
+    .grid {
+      display: grid;
+      grid-template-columns: 2fr 1fr;
+      gap: 24px;
+    }
+    @media (max-width: 900px) {
+      .grid {
+        grid-template-columns: 1fr;
+      }
+    }
+    .card {
+      background: rgba(255, 255, 255, 0.03);
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+      border: 1px solid rgba(255, 255, 255, 0.05);
+      padding: 24px;
+      border-radius: 16px;
+      margin-bottom: 24px;
+      box-shadow: 0 4px 30px rgba(0, 0, 0, 0.2);
+    }
+    .card h2 {
+      font-size: 1.5rem;
+      color: #38bdf8;
+      margin-top: 0;
+      margin-bottom: 20px;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+      padding-bottom: 10px;
+    }
+    a {
+      color: #38bdf8;
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+    a:hover {
+      color: #7dd3fc;
+      text-decoration: underline;
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 10px;
+    }
+    th, td {
+      padding: 12px;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+      text-align: left;
+    }
+    th {
+      color: #94a3b8;
+      font-weight: 600;
+    }
+    .badge {
+      display: inline-block;
+      padding: 4px 8px;
+      border-radius: 6px;
+      font-size: 0.8rem;
+      font-weight: 600;
+      background: rgba(56, 189, 248, 0.1);
+      color: #38bdf8;
+    }
+    .badge-tool {
+      background: rgba(236, 72, 153, 0.1);
+      color: #ec4899;
+    }
+    .badge-resource {
+      background: rgba(16, 185, 129, 0.1);
+      color: #10b981;
+    }
+    .badge-prompt {
+      background: rgba(245, 158, 11, 0.1);
+      color: #f59e0b;
+    }
+    .list-item {
+      padding: 12px 0;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+    }
+    .list-item:last-child {
+      border-bottom: none;
+    }
+    .item-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 6px;
+    }
+    .item-name {
+      font-family: monospace;
+      font-weight: bold;
+      font-size: 1.1rem;
+      color: #e2e8f0;
+    }
+    .item-desc {
+      color: #94a3b8;
+      font-size: 0.95rem;
+    }
+    .param-list {
+      margin-top: 6px;
+      font-size: 0.85rem;
+      color: #cbd5e1;
+      padding-left: 20px;
+    }
+  </style>
+</head>
+<body>
+  <div class="shell">
+    <header>
+      <h1>GTU Akademik MCP Sunucusu</h1>
+      <div class="subtitle">Express API & Model Context Protocol Canlı Paneli</div>
+    </header>
+
+    <div class="grid">
+      <div class="main-content">
+        <!-- Tools Card -->
+        <div class="card">
+          <h2>🛠️ Tanımlı Araçlar (Tools)</h2>
+          <% if (tools && tools.length > 0) { %>
+            <% tools.forEach(function(tool) { %>
+              <div class="list-item">
+                <div class="item-header">
+                  <span class="item-name"><%= tool.name %></span>
+                  <span class="badge badge-tool">Tool</span>
+                </div>
+                <div class="item-desc"><%= tool.description || 'Açıklama bulunmuyor.' %></div>
+              </div>
+            <% }); %>
+          <% } else { %>
+            <p>Kayıtlı araç bulunamadı.</p>
+          <% } %>
+        </div>
+
+        <!-- Resources Card -->
+        <div class="card">
+          <h2>📄 Kaynaklar (Resources & Templates)</h2>
+          <% if (resources && resources.length > 0) { %>
+            <% resources.forEach(function(resItem) { %>
+              <div class="list-item">
+                <div class="item-header">
+                  <span class="item-name">
+                    <% if (resItem.uri) { %>
+                      <a href="<%= resItem.uri %>" target="_blank"><%= resItem.uri %></a>
+                    <% } else if (resItem.uriTemplate) { %>
+                      <%= resItem.uriTemplate %>
+                    <% } %>
+                  </span>
+                  <span class="badge badge-resource"><%= resItem.uri ? 'Static Resource' : 'Template' %></span>
+                </div>
+                <div class="item-desc"><%= resItem.description || 'Açıklama bulunmuyor.' %></div>
+              </div>
+            <% }); %>
+          <% } else { %>
+            <p>Kayıtlı kaynak bulunamadı.</p>
+          <% } %>
+        </div>
+
+        <!-- Prompts Card -->
+        <div class="card">
+          <h2>🎭 Hazır Komut Şablonları (Prompts)</h2>
+          <% if (prompts && prompts.length > 0) { %>
+            <% prompts.forEach(function(prompt) { %>
+              <div class="list-item">
+                <div class="item-header">
+                  <span class="item-name"><%= prompt.name %></span>
+                  <span class="badge badge-prompt">Prompt</span>
+                </div>
+                <div class="item-desc"><%= prompt.description || 'Açıklama bulunmuyor.' %></div>
+              </div>
+            <% }); %>
+          <% } else { %>
+            <p>Kayıtlı prompt bulunamadı.</p>
+          <% } %>
+        </div>
+      </div>
+
+      <div class="sidebar">
+        <!-- Status Card -->
+        <div class="card">
+          <h2>📊 Sunucu Durumu</h2>
+          <table>
+            <tr>
+              <td>Port:</td>
+              <td><strong><%= port %></strong></td>
+            </tr>
+            <tr>
+              <td>Protokol:</td>
+              <td><span class="badge">Stdio / HTTP</span></td>
+            </tr>
+            <tr>
+              <td>Durum:</td>
+              <td style="color: #10b981; font-weight: bold;">Aktif</td>
+            </tr>
+          </table>
+        </div>
+
+        <!-- Quick Links Card -->
+        <div class="card">
+          <h2>🔗 Hızlı Linkler</h2>
+          <div style="display: flex; flex-direction: column; gap: 12px;">
+            <div><a href="/api/status">🚦 Sunucu Durumu (JSON)</a></div>
+            <div><a href="/api/mcp-meta">🔍 MCP Meta Verisi (JSON)</a></div>
+            <div><a href="/api/universite-yonetmeligi.txt" target="_blank">📜 Üniversite Yönetmeliği</a></div>
+            <div><a href="/api/akademisyen/prof_dr_ayse_yilmaz" target="_blank">👩‍🏫 Örnek Akademisyen Verisi</a></div>
+            <div><a href="/dersler/AI_101/mufredat" target="_blank">📚 Örnek Ders Müfredatı</a></div>
+            <div><a href="/api/project-file-report" target="_blank">📁 Ödev Raporu (JSON)</a></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</body>
+</html>

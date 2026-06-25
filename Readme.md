@@ -67,7 +67,7 @@ Yapay zekanın internetteki akademik kaynakları, web sayfalarını ve duyurular
 {
   "servers": {
     "fetch-web": {
-      "command": "C:\\Program Files\\nodejs\\npx.cmd",
+      "command": "npx",
       "args": [
         "-y",
         "@modelcontextprotocol/server-puppeteer"
@@ -75,6 +75,7 @@ Yapay zekanın internetteki akademik kaynakları, web sayfalarını ve duyurular
     }
   }
 }
+```
 
 ### 🧠 Adım 2.3: Memory (Kalıcı Hafıza) MCP Sunucusu
 
@@ -86,7 +87,7 @@ Yapay zekanın internetteki akademik kaynakları, web sayfalarını ve duyurular
 {
   "servers": {
     "academic-memory": {
-      "command": "C:\\Program Files\\nodejs\\npx.cmd",
+      "command": "npx",
       "args": [
         "-y",
         "@modelcontextprotocol/server-memory"
@@ -142,3 +143,70 @@ Eğer yüzlerce farklı kaynak varsa ve her biri için ayrı ayrı "Resource" ta
 ### 🎭 4. Prompts (Hazır Komut Şablonları)
 Kullanıcının yapay zekayı daha verimli kullanabilmesi için sunucu tarafından yapay zekâ arayüzüne enjekte edilen hazır prompt kalıplarıdır. Kullanıcı arayüzde bir butona basarak karmaşık bir analizi tek tıkla başlatabilir.
 * **Akademik Örnek:** Sunucu yapay zekaya şu şablonu sunabilir: `"Akademik Teşvik Analizi Yap: {hoca_adi}"`. Kullanıcı sadece hocanın adını seçer, arka plandaki tüm prompt mühendisliği (system prompt) otomatik yüklenir.
+
+---
+
+## ⚡ Bölüm 4: AI Agent Skills (Yapay Zekâ Yetenekleri)
+
+Yapay zekâ ajanlarının (AI Agents) sadece kod yazıp veya soru cevaplamakla kalmayıp, belirli mühendislik ve iş akışı metodolojilerini disiplinli bir şekilde takip etmesini sağlayan özel yönerge setlerine **AI Agent Skills** denir.
+
+### 🌐 Popüler Hazır AI Agent Skill Örnekleri
+Aşağıda, yapay zekâ kodlama asistanlarının (Cursor, Claude Code, Cline vb.) yazılım süreçlerini "vibe coding" (gelişigüzel kodlama) yerine planlı ve akademik/mühendislik standartlarına uygun yürütmesini sağlayan popüler yetenek şablonları yer almaktadır:
+
+*   [**`/grill-me` (Sorgula/Sıkıştır)**](https://github.com/mattpocock/skills/blob/main/skills/productivity/grill-me/SKILL.md): Yazılacak kodun planını veya tasarım kararlarını test etmek için ajanı tek tek socratic sorular soran bir mülakatçıya dönüştürür.
+*   [**`/domain-model` (Etki Alanı Modelleme)**](https://github.com/mattpocock/skills/tree/main/skills/engineering/domain-modeling): Kod yazmadan önce projenin terminolojisini ve kurallarını `CONTEXT.md` veya ADR (Architecture Decision Record) dosyaları üzerinden hizalar.
+*   [**`/tdd` (Test Güdümlü Geliştirme)**](https://github.com/mattpocock/skills/tree/main/skills/engineering/tdd): Ajanın kod yazmadan önce test yazmasını ve Red-Green-Refactor döngüsünü uygulamasını zorunlu kılar.
+*   [**`/diagnose` (Hata Teşhis)**](https://github.com/mattpocock/skills/tree/main/skills/engineering/diagnosing-bugs): Hataları çözmeden önce sistematik bir yaklaşımla (hata tekrarlama, hipotez kurma, en aza indirme) analiz edilmesini sağlar.
+
+Bu yeteneklerin tamamına ve daha fazlasına Matt Pocock'ın açık kaynaklı [**mattpocock/skills**](https://github.com/mattpocock/skills) deposundan ulaşabilirsiniz.
+
+---
+
+## 🎓 Bölüm 5: Custom AI Agent Skill ile Akademisyen Probleminin Çözümü
+
+Öğrencilerin teslim ettiği dosyaların formatlarını incelemek ve hatalı olanlara otomatik e-posta taslakları hazırlamak amacıyla özel bir yetenek olan [**akademisyen-problemi/SKILL.md**](file:///Users/cemalbolat/Desktop/GTU-Workshop-24.06.2026/skills/akademisyen-problemi/SKILL.md) dosyasını oluşturduk.
+
+### 🛠️ Custom Skill Tanımı
+Yeteneğin tüm yönerge ve kurallarına projemiz altındaki [**SKILL.md**](file:///Users/cemalbolat/Desktop/GTU-Workshop-24.06.2026/skills/akademisyen-problemi/SKILL.md) dosyasından ulaşabilirsiniz.
+
+### 📊 Akademisyen Problemi Çözüm Raporu
+Hazırladığımız custom skill yönergelerine göre `OgrenciOdevleri` klasörü taranmış ve aşağıdaki analiz sonuçları elde edilmiştir:
+
+#### 🚫 Hatalı Teslim Yapan Öğrenciler Tablosu
+
+| Öğrenci Adı | Teslim Edilen Dosya | Durum / Hata Nedeni |
+| :--- | :--- | :--- |
+| **Ayşe Demir** | `Dönem_Ödevi_Ayse_Demir.rar` | PDF değil (Sıkıştırılmış arşiv) |
+| **Fatma Çelik** | `Dönem_Ödevi_Fatma_Celik.rar` | PDF değil (Sıkıştırılmış arşiv) |
+
+*(Diğer 10 öğrenci ödevlerini doğru bir şekilde `.pdf` formatında teslim etmiştir.)*
+
+#### ✉️ Otomatik Oluşturulan Uyarı E-postası Taslakları
+
+1. **Ayşe Demir İçin E-posta Taslağı:**
+   ```text
+   Kime: ayse_demir@gtu.edu.tr
+   Konu: Dönem Ödevi Format Hatası Uyarı
+
+   Sayın Ayşe Demir,
+
+   Teslim etmiş olduğunuz 'Dönem_Ödevi_Ayse_Demir.rar' isimli ödev dosyası belirlenen format kurallarına (PDF) uymamaktadır. 
+   Lütfen ödevinizi en kısa sürede PDF formatına çevirerek sisteme yeniden yükleyiniz.
+
+   İyi çalışmalar,
+   Dersin Sorumlu Akademisyeni
+   ```
+
+2. **Fatma Çelik İçin E-posta Taslağı:**
+   ```text
+   Kime: fatma_celik@gtu.edu.tr
+   Konu: Dönem Ödevi Format Hatası Uyarı
+
+   Sayın Fatma Çelik,
+
+   Teslim etmiş olduğunuz 'Dönem_Ödevi_Fatma_Celik.rar' isimli ödev dosyası belirlenen format kurallarına (PDF) uymamaktadır. 
+   Lütfen ödevinizi en kısa sürede PDF formatına çevirerek sisteme yeniden yükleyiniz.
+
+   İyi çalışmalar,
+   Dersin Sorumlu Akademisyeni
+   ```
