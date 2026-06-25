@@ -1,37 +1,33 @@
 {
-  "servers": {
-    "filesystem": {
-      "command": "npx",
-      "args": [
-        "-y",
-        "@modelcontextprotocol/server-filesystem",
-        "C:/Users/cemal/Desktop/GTU-Workshop-24.06.2026"
-      ]
-    },
-    "fetch-web": {
-      "command": "C:\\Program Files\\nodejs\\npx.cmd",
-      "args": [
-        "-y",
-        "@modelcontextprotocol/server-puppeteer"
-      ]
-    },
-    "academic-memory": {
-      "command": "C:\\Program Files\\nodejs\\npx.cmd",
-      "args": [
-        "-y",
-        "@modelcontextprotocol/server-memory"
-      ]
-    },
-
-    "local-mcp": {
-      "type": "http",
-      "url": "http://localhost:3000",
-      "http": {
-        "mcpMeta": "http://localhost:3000/api/mcp-meta",
-        "health": "http://localhost:3000/api/status",
-        "timeoutMs": 5000
-      },
-      "description": "Local HTTP-backed MCP server (Express + MCP demo)"
-    }
-  }
+	"servers": {
+		"filesystem": {
+			"command": "npx",
+			"args": [
+				"-y",
+				"@modelcontextprotocol/server-filesystem",
+				"/Users/cemalbolat/Desktop/GTU-Workshop-24.06.2026"
+			],
+			"type": "stdio"
+		},
+		"fetch-web": {
+			"command": "npx",
+			"args": [
+				"-y",
+				"@modelcontextprotocol/server-puppeteer"
+			],
+			"type": "stdio"
+		},
+		"academic-memory": {
+			"command": "npx",
+			"args": [
+				"-y",
+				"@modelcontextprotocol/server-memory"
+			],
+			"type": "stdio"
+		},
+		"my-mcp-server-f5ece868": {
+			"url": "http://localhost:3000/sse",
+			"type": "sse"
+		}
+	}
 }
